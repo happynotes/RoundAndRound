@@ -1,0 +1,27 @@
+Package: RoundAndRound
+Title: Plot objects moving in orbits
+Version: 0.0.0.9000
+Authors@R: person("Lele", "Shu", email = "lele.shu@gmail.com", role = c("aut", "cre"))
+Description: Calculate the objects track in orbits and plot the moving in 2D and 3D.
+Depends: R (>= 3.0.0)
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0
+Imports: Rcpp (>= 0.12.17),
+  reshape2,
+  ggplot2,
+  gridExtra,
+  grid,
+  xts, 
+  zoo,
+  abind,
+  utils,
+  lubridate,
+  geometry,
+  methods
+LinkingTo: Rcpp
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
