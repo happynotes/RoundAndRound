@@ -1,8 +1,8 @@
 Package: RoundAndRound
-Title: Plot objects moving in orbits
-Version: 0.0.0.9000
+Title: Plot Objects Moving in Orbits
+Version: 0.0.1
 Authors@R: person("Lele", "Shu", email = "lele.shu@gmail.com", role = c("aut", "cre"))
-Description: Calculate the objects track in orbits and plot the moving in 2D and 3D.
+Description: Calculate/visualize the objects in orbits in 2D and 3D.
 Depends: R (>= 3.0.0)
 License: GPL (>= 3)
 Encoding: UTF-8
@@ -19,8 +19,8 @@ Imports: Rcpp (>= 0.12.17),
   utils,
   lubridate,
   geometry,
-  methods
-LinkingTo: Rcpp
+  methods,
+  graphics
 Suggests: testthat,
     knitr,
     rmarkdown
