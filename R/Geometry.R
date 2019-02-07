@@ -86,9 +86,8 @@ PCS2CCS <- function(theta = 0:360, a=1, ab = 1, orig=c(0,0), rotation = 0, clock
 #' points(c1, 0, col=2)
 #' lines(x2, col=3);
 #' points(c2, 0, col=3)
-ab2c <- function(ab, a=1){
+ab2c <- function(a=1, ab){
   b = a / ab
-  c=sqrt(a^2-b^2);
+  c=sqrt( abs(a^2-b^2) );
   return(c)
 }
-
