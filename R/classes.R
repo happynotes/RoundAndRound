@@ -1,15 +1,14 @@
 #' Class of planet
-#' \code{PIHM.river}
-#' @slot ab Shape of the object, ab=1 Sphere, ab!=1 Ellipsoid
-#' @slot radius Radius for sphere (ab=1), or Semi-major axis for Ellipsoid (ab!=1)
+#' \code{SpaceObject}
+#' @slot radius Radius for sphere
 #' @slot period data.frame 1*3 c(Period.Rotate, Period.Orbit, Period.Synodic)
 #' @importFrom methods new
 #' @return Class of SpaceObject
 #' @export
 SpaceObject <- methods::setClass("SpaceObject",
-                                slots = c(ab='numeric',
+                                slots = c(shape ='function',
                                           radius="numeric",
-                                          period ="data.frame"
+                                          Period.Rotate ="data.frame"
                                           ) )
 
 # Period.Rotate = 'numeric',
