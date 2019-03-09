@@ -17,7 +17,7 @@ o.sun = c(-pe$c, 0, 0)  # coordinates of the Sun
 id1 <- NULL; id2=id1; id0=id1
 # open3d()
 ax = cbind(c(0,-pe$c,0), c(0,pe$c,0))
-axis0 =c(0, 1, sin(d2r(23.5) ) )
+axis0 =c(0, 1, 0*sin(d2r(23.5) ) )
 spin0 <- spin3d(c(0, 1, 0), rpm = 0 ) # the scene spinner
 spin1 <- spin3d(c(0, 1, 0 ), rpm = 24 ) # the scene spinner --- sun
 spin2 <- spin3d(axis0, rpm = 30) # the sprite spinner --- earth
@@ -46,7 +46,7 @@ TD2TD<-function(x, z=0){
 # clear3d(type = 'shapes') # delete the old sprite
 # obj.earth <-spheres3d(c(0,0,0), radius=rr[2], col = "white",
 #                       texture = system.file('extdata/earth.png', package = 'RoundAndRound') )
-# Arrow(len=90, type = "lines", lwd=5)
+# Arrow3D(len=90, type = "lines", lwd=5)
 # view3d( theta = 0, phi = 30)
 # stop()
 
@@ -68,9 +68,10 @@ f <- function(time, fps) {
   # text3d(c(50,0,50), texts='Solar System', col='gold', cex=3)
   text3d(c(50,0,50), texts=paste(round(readDay), 'day'), col='gold', cex=2)
 
-  Arrow(len=60, type = "lines", lwd=5)
-  light3d(x = cbind(100,0,0), diffuse = "gray75", specular = "gray75", viewpoint.rel = FALSE)
-  light3d(diffuse = "gray10", specular = "gray25")
+  Arrow3D(len=60, type = "lines", lwd=5)
+  clear3d(type = "lights")
+  light3d(x = cbind(50,25,30),viewpoint.rel = FALSE)
+  view3d(theta = 35, phi=15)
   par3d(zoom=0.10)
   # lines3d(cbind(lim[,1], 0,0), col=3)
   # icol=round(abs( (readDay) %% p.mp - p.mp/2)+1) # for Moon Phase
@@ -88,8 +89,8 @@ f <- function(time, fps) {
 }
 # if (!rgl.useNULL())
 #   play3d(f, duration = duration, startTime = 0)
-for(time in 1:300 / 10){
-  message(time)
+for(time in 1:(24 * 5) / 24){
+  # message(time)
   f(time, fps=1)
   # stop()
 }

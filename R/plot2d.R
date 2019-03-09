@@ -7,6 +7,7 @@
 #' @param ... More options in plot function
 #' @export
 #' @examples
+#' \dontrun{
 #' n=50
 #' par(mfrow=c(2,1))
 #' plotpcs(theta = 1:n * 15, a=1:n/10, ab=1, type='l', asp=1)
@@ -14,6 +15,7 @@
 #' xy = PCS2CCS(theta = 1:n * 10, a=1:n/10, ab=1)
 #' xy[,1]=xy[,1]+1
 #' points(xy, pch=19, col=terrain.colors(nrow(xy)))
+#' }
 plotpcs <- function(theta, a, ab=1, orig = c(0,0), fun=graphics::plot, ...){
   # if(is.matrix(theta) ||is.data.frame(theta) ||is.matrix(a) ||is.data.frame(a)){
   #     theta = cbind(theta)
@@ -37,15 +39,15 @@ plotpcs <- function(theta, a, ab=1, orig = c(0,0), fun=graphics::plot, ...){
 #' @param ... Mor options for graphics::arrows function.
 #' @export
 #' @examples
+#' \dontrun{
 #' x1=PCS2CCS(a=10, ab=1.5)
 #' c1 = ab2c(a=10, ab=1.5)
 #' plot(x1, type='n', xlim=c(-10,10), ylim=c(-10,10), asp=1)
 #' abline(h=0, v=0, asp=1, lty=2)
 #' graphics::lines(x1, col=2);
 #' points(c1, 0, col=2) # focus
-#' # Arrow.pcs(theta = 1:12 * 30, r1=5, r2=10, ab=1, length=.1)
-#' # Arrow.pcs(theta = 1:12 * 30, r1=5, r2=10, ab=1.5, length=.1, col=2)
 #' Arrow.pcs(theta = 1:12 * 30, r1=0, r2=10, ab1=1.5, length=.1, col=2, o1 = c(c1,0), o2=c(0,0))
+#' }
 Arrow.pcs <- function(theta,
                       r1=0, r2=1e6,
                       o1=c(0,0), o2 = o1,
@@ -70,6 +72,7 @@ Arrow.pcs <- function(theta,
 #' @param ... More options in plot function.
 #' @export
 #' @examples
+#' \dontrun{
 #' a = 10;
 #' ab=1.5
 #' x1=PCS2CCS(a=a, ab=ab)
@@ -78,6 +81,7 @@ Arrow.pcs <- function(theta,
 #' Arrow.pcs(theta = 1:12 * 30, r1=0, r2=a, ab1=ab, length=.1, col=2, o1 = c(c1,0), o2=c(0,0))
 #' pos = PCS2CCS(theta = 1:12 * 30, a=a, ab=ab)
 #' plotplanet(orig = pos, arrow.len=0.1)
+#' }
 plotplanet <- function(orig =c(0,0),
                         rad=1, theta=0, fun=graphics::lines, cols='gray', ab=1,
                         arrow=TRUE, arrow.len=0.1,...){
@@ -96,15 +100,3 @@ plotplanet <- function(orig =c(0,0),
     # if(arrow) myarrow(theta=theta, orig =o, r1=-rad, r2=rad, col=cols[2], ab=ab, length=arrow.len)
   }
 }
-
-# Arrow.curve <- function(){
-#   add.ring(r=rad * 2.5, theta=0:180, fun=graphics::lines, col='royalblue', lwd=3)
-#   myarrow(theta=270, orig =c(0, -2.5 * rad), r1=0, r2=10, col='royalblue', lwd=3)
-# }
-# logo <- function(xlim, ylim, x=0.8, y=0.6){
-#   dx=diff(xlim); dy=diff(ylim);
-#   x0=xlim[1];
-#   y0=ylim[1]
-#   text(x0+dx*x, y0+dy*y, 'by Lele', cex=1, col='gray80')
-# }
-#

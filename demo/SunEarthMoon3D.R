@@ -44,7 +44,7 @@ TD2TD<-function(x, z=0){
   x = rbind(x)
   return(cbind(x[,1], 0, x[,2]) )
 }
-
+irun =0
 f <- function(time, fps) {
   # sp1=NULL;sp2=NULL; sp3=NULL
   xx=par3d(skipRedraw = TRUE) # stops intermediate redraws
@@ -58,8 +58,10 @@ f <- function(time, fps) {
   # bg3d('black')
   bg3d(texture = system.file("extdata/MilkyWay.png", package = "RoundAndRound"), col = "white")
   # rgl.bg(fogtype = "linear", texture = system.file('extdata/sun.png', package = 'RoundAndRound') )
-  aspect3d("iso");
-  #view3d( theta = 0, phi = 30)
+  aspect3d("iso");irun = irun +1
+  if(irun==1){
+    view3d( theta = 15, phi = 30)
+  }
   text3d(c(50,0,50), texts=paste(round(theDay), 'day'), col='gold', cex=2)
   par3d(zoom=0.30)
   lines3d(TD2TD(orb.earth, 0), col=4, lwd=2)
@@ -67,7 +69,7 @@ f <- function(time, fps) {
   lines3d(cbind(lim[,1], 0,0), col=3)
   # lines3d(TD2TD(orb.moon, 0), col='gold', lwd=1.5)
   # icol=round(abs( (theDay) %% p.mp - p.mp/2)+1) # for Moon Phase
-  # Arrow(orig=-o.sun,len=rep(1,3)*50, type='lines', lwd=10)
+  # Arrow3D(orig=-o.sun,len=rep(1,3)*50, type='lines', lwd=10)
   obj.sun <- spheres3d(c(0,0,0), radius=rr[1], col='transparent', emission = "white",
                        texture = system.file('extdata/sun.png', package = 'RoundAndRound') )
   obj.earth <-spheres3d(c(0,0,0), radius=rr[2], col = "white",

@@ -1,7 +1,8 @@
 #' Class of planet
 #' \code{SpaceObject}
+#' @slot shape Ploting function of the shape
 #' @slot radius Radius for sphere
-#' @slot period data.frame 1*3 c(Period.Rotate, Period.Orbit, Period.Synodic)
+#' @slot Period.Rotate data.frame 1*3 c(Period.Rotate, Period.Orbit, Period.Synodic)
 #' @importFrom methods new
 #' @return Class of SpaceObject
 #' @export
@@ -11,9 +12,6 @@ SpaceObject <- methods::setClass("SpaceObject",
                                           Period.Rotate ="data.frame"
                                           ) )
 
-# Period.Rotate = 'numeric',
-# Period.Orbit = 'numeric',
-# Period.Synodic = 'numeric'
 
 #' Class of Orbit
 #' \code{Orbit}
