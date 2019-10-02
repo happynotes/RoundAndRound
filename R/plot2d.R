@@ -57,7 +57,8 @@ Arrow.pcs <- function(theta,
   o2=rbind(o2)
   c1=PCS2CCS(theta, r1, orig=o1, ab=ab1)
   c2=PCS2CCS(theta, r2, orig=o2, ab=ab2)
-  graphics::arrows(c1[,1], c1[,2], c2[,1], c2[,2], ...)
+  graphics::arrows(x0=c1[1,1], y0=c1[1,2],
+                   x1=c2[1,1], y1=c2[1,2], ...)
 }
 
 #' Plot a planet
@@ -116,13 +117,17 @@ plotplanet <- function(orig =c(0,0),
 #' @param fun.plot Plot function
 #' @param add Whether add plot to existing plot.
 #' @param ... More options in plot function.
+#' @importFrom graphics lines plot text
 #' @export
 #' @examples
 #' plot(0, type='n', xlim=c(-1,1)*1.5, ylim=c(-1,1)*1.5, asp=1)
-#' plotclock(add=TRUE,fun.plot = lines, orig=c(0.5,0), rad=.25, val=rep('', 60), time=c(NA, NA, as.numeric(format(Sys.time(), '%S'))))
-#' plotclock(add=TRUE,fun.plot = lines, orig=c(0, .5), rad=.25, val=rep('', 60), time=c(NA, as.numeric(format(Sys.time(), '%M')), NA) )
-#' plotclock(add=TRUE,fun.plot = lines, orig=c(-.5,0), rad=.25, val=rep('', 60), time=c(as.numeric(format(Sys.time(), '%H')), NA,  NA))
-#' plotclock(add=T, fun.plot=lines)
+#' plotclock(add=TRUE,fun.plot = lines, orig=c(0.5,0),
+#' rad=.25, val=rep('', 60), time=c(NA, NA, as.numeric(format(Sys.time(), '%S'))))
+#' plotclock(add=TRUE,fun.plot = lines, orig=c(0, .5),
+#' rad=.25, val=rep('', 60), time=c(NA, as.numeric(format(Sys.time(), '%M')), NA) )
+#' plotclock(add=TRUE,fun.plot = lines, orig=c(-.5,0),
+#' rad=.25, val=rep('', 60), time=c(as.numeric(format(Sys.time(), '%H')), NA,  NA))
+#' plotclock(add=TRUE, fun.plot=lines)
 plotclock <- function(
   time=c(as.numeric(format(Sys.time(), format='%H')),
          as.numeric(format(Sys.time(), format='%M')) ,
@@ -132,23 +137,25 @@ plotclock <- function(
           (time[2] +  ifelse(is.na(time[3]), 0, time[3]/60) ) * 6,
           time[3] * 6 )*(-1)+90,
   val.arg= list(col='blue', cex=1),
-  arr.arg=list(col=c(1,3,2), lwd=ring.arg$lwd/(1:3)*1.5, lty=rep(1,3), arrlen=rep(.1,3),
+  arr.arg=list(col=c(1,3,2), lwd=ring.arg$lwd/(1:3)*1.5, lty=rep(1,3),
+               arrlen=rep(.1,3),
                length=c(0.5, 0.8, 0.9)*rad),
   ring.arg=list(col='gold', type='l', lwd=4, len.tick=rad*0.05),
-  fun.plot=lines, add=F,
+  fun.plot=lines,
+  add=F,
   ...){
   cc=PCS2CCS(orig =orig,  ab=ab, a=rad)
   nv=length(val)
   v.theta = -1 * 1:nv * (360/nv) + 90
   c.txt =PCS2CCS(theta = v.theta,  orig =orig,  ab=ab, a=rad*1.2)
   if(add){
-    lines(cc, lwd=ring.arg$lwd, col=ring.arg$col, asp=1)
+    graphics::lines(cc, lwd=ring.arg$lwd, col=ring.arg$col, asp=1)
   }else{
-    plot(c.txt, type='n', xlab='', ylab='', asp=1, ...)
-    lines(cc, lwd=ring.arg$lwd, col=ring.arg$col, asp=1)
+    graphics::plot(c.txt, type='n', xlab='', ylab='', asp=1, ...)
+    graphics::lines(cc, lwd=ring.arg$lwd, col=ring.arg$col, asp=1)
   }
 
-  text(c.txt, paste(val), col=val.arg$col, cex=val.arg$cex)
+  graphics::text(c.txt, paste(val), col=val.arg$col, cex=val.arg$cex)
 
   Arrow.pcs(v.theta,
             col=ring.arg$col,
@@ -160,13 +167,14 @@ plotclock <- function(
   for(i in 1:3){
     if(is.na(angle[i]) | is.null(angle[i]) ){
     }else{
+      # print(arr.arg$arrlen)
       Arrow.pcs(angle[i],
                 col=arr.arg$col[i],
                 r1=-0.1*rad,
                 r2=arr.arg$length[i],
                 o1=orig,
                 lwd=arr.arg$lwd[i],
-                length=arr.arg$arrlen)
+                length=arr.arg$arrlen[i])
     }
   }
 }
