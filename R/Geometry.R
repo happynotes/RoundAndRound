@@ -3,14 +3,12 @@
 #' @return Degree
 #' @export
 #' @examples
-#' \dontrun{
 #' r = (1:100)/100 * 4 * pi
 #' d = r2d(r)
 #' rr = d2r(d)
 #' plot(d, sin(rr));
 #' abline(h=0 )
 #' abline(v = 360)
-#' }
 r2d <- function(x){
   return (x * 180 / pi)
 }
@@ -19,14 +17,12 @@ r2d <- function(x){
 #' @return Radian
 #' @export
 #' @examples
-#' \dontrun{
 #' r = (1:100)/100 * 4 * pi
 #' d = r2d(r)
 #' rr = d2r(d)
 #' plot(d, sin(rr));
 #' abline(h=0 )
 #' abline(v = 360)
-#' }
 d2r <- function(x){
   return (x * pi / 180)
 }
@@ -40,7 +36,6 @@ d2r <- function(x){
 #' @return (x,y) in Cartesian Coordinate System.
 #' @export
 #' @examples
-#' \dontrun{
 #' x1=PCS2CCS(a=10, ab=1.5)
 #' x2=PCS2CCS(a=9, ab=1.2)
 #' c1 = ab2c(a=10, ab=1.5)
@@ -58,7 +53,7 @@ d2r <- function(x){
 #' x2=PCS2CCS(a=8, ab=1.5, clockwise = FALSE, rotation=45);
 #' plot(x1, asp=1, col=terrain.colors(nrow(x1)), pch=19)
 #' points(x2, asp=1, col=terrain.colors(nrow(x1)))
-#' }
+#'
 PCS2CCS <- function(theta = 0:360, a=1, ab = 1, orig=c(0,0), rotation = 0, clockwise=FALSE ){
   na = length(a)
   nt = length(theta)
@@ -95,7 +90,6 @@ PCS2CCS <- function(theta = 0:360, a=1, ab = 1, orig=c(0,0), rotation = 0, clock
 #' @return c in Focus (c, 0)
 #' @export
 #' @examples
-#' \dontrun{
 #' x1=PCS2CCS(a=10, ab=1.5)
 #' x2=PCS2CCS(a=9, ab=1.2)
 #' c1 = ab2c(a=10, ab=1.5)
@@ -106,9 +100,35 @@ PCS2CCS <- function(theta = 0:360, a=1, ab = 1, orig=c(0,0), rotation = 0, clock
 #' points(c1, 0, col=2)
 #' lines(x2, col=3);
 #' points(c2, 0, col=3)
-#' }
+#'
 ab2c <- function(a=1, ab){
   b = a / ab
   c=sqrt( abs(a^2-b^2) );
   return(c)
+}
+
+#' Roate a (x,y) with an Angle.
+#' @param theta An angle (degree)
+#' @param x Coordinate (x,y)
+#' @param orig Pivot of rotation
+#' @return Rotated (x,y)
+#' @export
+#' @examples
+#' plot(PCS2CCS(a=2), asp=1)
+#' grid()
+#' x=rbind(c(1,1))
+#' for(i in 1:12){
+#'   points(rotate(x, 30*i, orig=c(1,0)))
+#' }
+rotate <- function(x, theta, orig=c(0,0)){
+  x=rbind(x)
+  xx=x[,1]-orig[1]
+  yy=x[,2]-orig[2]
+  rr=d2r(theta)
+  cc=cos(rr)
+  ss=sin(rr)
+  # print(cbind(xx, cc, yy, ss))
+  x.ret=cbind( xx*cc-yy*ss + orig[1],
+            xx*ss+yy*cc + orig[2] )
+  x.ret
 }

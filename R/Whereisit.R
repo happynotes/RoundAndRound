@@ -8,13 +8,11 @@
 #' @return (x,y) in Cartesian Coordinate System.
 #' @export
 #' @examples
-#' \dontrun{
 #' tday = seq(0, 365, 30)
 #' x=Status.planet(t=tday, p.orb = 365, r.orb=10)
 #' plot(PCS2CCS(0:360, a=10), type='l')
 #' plotplanet(orig=x[,-1], rad = .51)
 #' grid()
-#' }
 Status.planet <- function(t, p.orb, ab=1,
                           r.orb=1, orig=c(0,0)){
   #p.rot = Rotation Period
@@ -37,13 +35,11 @@ Status.planet <- function(t, p.orb, ab=1,
 #' @return (x,y) in Cartesian Coordinate System.
 #' @export
 #' @examples
-#' \dontrun{
 #'tday = seq(0, 365, 30)
 #'x=Orbit.location(t=tday, p.orb = 365, a=10)
 #'plot(PCS2CCS(0:360, a=10), type='l')
 #'plotplanet(orig=x, rad = .51)
 #'grid()
-#'}
 Orbit.location <-function(t, p.orb, a=1, theta=0, orig=c(0,0), ab=1){
   # tc -- days of full cycle in the Orbit.
   if(p.orb <= 0){

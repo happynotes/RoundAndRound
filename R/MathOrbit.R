@@ -4,9 +4,9 @@
 #' @param ab Semi-major over semi-minor. ab=1 for a Ring.
 #' @export
 #' @examples
-#' \dontrun{
+#'
 #' orbit.parameter(a=1, b=1.5)
-#' }
+#'
 orbit.parameter <- function(a, b=NULL, ab=NULL){
   # a                 # semi-major axis
   if( all(is.null(c(b,ab)) || all(is.na(c(b,ab)))) ){
