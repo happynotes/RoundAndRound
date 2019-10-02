@@ -16,11 +16,11 @@ ob.earth = 22 * rad
 sp = 29.530589
 p.earth = 365.256363
 rlim = 22
-ylim=rlim*rad * c(-1,1) * 6/8;
-xlim=rlim*rad * c(-1,1);
+ylim=rlim*rad * c(-1.1,1.1) * 6/8;
+xlim=rlim*rad * c(-1.1,1.1);
 leg.loc = leg.position(xlim,ylim,.8,.9)
-# iplot=TRUE
-iplot=FALSE
+iplot=TRUE
+# iplot=FALSE
 origin=c(0,0)
 ab0 = 152.10 / 147.10 * 1.0 # *1e6
 ab.earth = ab0 * 1.5
@@ -33,7 +33,7 @@ r.moon = 1*rad
 graphics.off()
 if(iplot) png("Moon_Sun.png", height = 6, width = 8, unit='in', res=200)
 
-days = round(seq(0, 365, sp/6), 0)
+days = round(seq(0, 365, 7), 0)
 nt=length(days)
 bg<-function(){
   par(mar=rep(0,4))
@@ -45,7 +45,7 @@ bg<-function(){
             r1=0, r2=ob.earth, col='gold', lwd=.9, lty=2, length=0)
   plotplanet(orig=o.sun,rad=rad*6, arrow = F, fun=polygon, cols ='coral2', border='gold', lwd=5)  # Sun
   plotpcs(theta=0:360, a=ob.earth, ab=ab.earth, fun = lines, lty=2)
-  text(o.sun[1], o.sun[2],'Sun', cex=2)
+  text(o.sun[1], o.sun[2], 'Sun', cex=2)
   sm = Status.planet(t=0:365, p.orb = p.earth,
                      ab=ab.earth, r.orb =ob.earth + rad/365 *2,
                      orig = origin)
@@ -69,9 +69,9 @@ for(i in 1:nday){
   plotplanet(orig=loc.e[,-1], rad = rad*.19,
              theta = loc.e[,1], len=.1, cols = 2, arrow = F, border=2, fun = polygon )
   orig = loc.e[,-1];
-  loc.e = Status.planet(t=iday, p.orb = p.earth, r.orb=ob.earth-rad*3,
+  loc.day = Status.planet(t=iday, p.orb = p.earth, r.orb=ob.earth*.15,
                      orig = orig, ab=ab.earth)
-  text(loc.e[,2], loc.e[,3], paste0(iday), cex=.7, col='royalblue')
+  text(loc.day[,2], loc.day[,3], paste0(iday), cex=.7, col='royalblue')
 
   #Moon
   iorb = floor(iday / p.moon)
@@ -92,3 +92,4 @@ plotplanet(r=rad*.18, o=leg.loc+c(0,3)*rad, fun = polygon,  cols = 2, arrow=F, b
 text(leg.loc[1], leg.loc[2]+3*rad, 'Earth', adj = -.7, cex=0.6)
 # mtext(side=1, 'Earth & Moon in a year', line=-2)
 if(iplot) dev.off()
+
