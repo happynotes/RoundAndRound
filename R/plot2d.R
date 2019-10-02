@@ -57,8 +57,8 @@ Arrow.pcs <- function(theta,
   o2=rbind(o2)
   c1=PCS2CCS(theta, r1, orig=o1, ab=ab1)
   c2=PCS2CCS(theta, r2, orig=o2, ab=ab2)
-  graphics::arrows(x0=c1[1,1], y0=c1[1,2],
-                   x1=c2[1,1], y1=c2[1,2], ...)
+  graphics::arrows(x0=c1[,1], y0=c1[,2],
+                   x1=c2[,1], y1=c2[,2], ...)
 }
 
 #' Plot a planet
