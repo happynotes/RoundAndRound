@@ -16,7 +16,7 @@
 #' xy[,1]=xy[,1]+1
 #' points(xy, pch=19, col=terrain.colors(nrow(xy)))
 #'
-plotpcs <- function(theta, a, ab=1, orig = c(0,0), fun=graphics::plot, ...){
+plotpcs <- function(theta, a=1, ab=1, orig = c(0,0), fun=graphics::plot, ...){
   # if(is.matrix(theta) ||is.data.frame(theta) ||is.matrix(a) ||is.data.frame(a)){
   #     theta = cbind(theta)
   #     a=cbind(theta)
@@ -179,3 +179,48 @@ plotclock <- function(
   }
 }
 
+
+#' Plot a fan
+#' @param a Radius of start and end points of the arrow.
+#' @param theta Angle in polar coordinate system
+#' @param orig Origin
+#' @param ab Semi-major over semi-minor. ab=1 for a Ring.
+#' @param fun Plot function. default = plot
+#' @param ... More options in plot function
+#' @export
+#' @examples
+#'
+#' n=50
+#' theta =0:n
+#' plotpcs(theta = theta, a=1, ab=1, asp=1)
+#' plotfan(theta = theta * 10, a=1, ab=1, fun=polygon)
+#'
+plotfan <- function(theta, a=1, ab=1, orig = c(0,0), fun=graphics::plot, ...){
+  xy =PCS2CCS(theta, a = a, ab=ab, orig=orig)
+  xy =rbind(orig, xy, orig)
+  fun(xy, ...)
+}
+
+
+#' Plot a fan
+#' @param a Radius of start and end points of the arrow.
+#' @param theta Angle in polar coordinate system
+#' @param orig Origin
+#' @param ab Semi-major over semi-minor. ab=1 for a Ring.
+#' @param fun Plot function. default = plot
+#' @param ... More options in plot function
+#' @export
+#' @examples
+#'
+#' n=50
+#' theta =0:n
+#' plotpcs(theta = theta, a=2, ab=1, asp=1)
+#' plotring(theta = theta , r1=1, r2=2, ab=1, fun=polygon, col='blue')
+#'
+plotring <- function(theta, r1=1, r2=2, ab=1, orig = c(0,0), fun=graphics::plot, ...){
+  xy1 =PCS2CCS(theta, a = r1, ab=ab, orig=orig)
+  xy2 =PCS2CCS(theta, a = r2, ab=ab, orig=orig)
+  id=nrow(xy1):1
+  xy =rbind(xy1[id,], xy2, xy1[id[1],])
+  fun(xy, ...)
+}
