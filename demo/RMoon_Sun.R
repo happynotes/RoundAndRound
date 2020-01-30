@@ -1,4 +1,6 @@
 rm(list=ls())
+dir.png = 'DemoOut/Sun_Moon'
+dir.create(dir.png, showWarnings = FALSE, recursive = TRUE)
 library(RoundAndRound)
 leg.position <- function(xlim, ylim, x=.8, y=.9){
   dx=diff(xlim); dy=diff(ylim); x0=xlim[1]; y0=ylim[1]
@@ -31,7 +33,7 @@ ab.moon = 405500 / 363300
 r.moon = 1*rad
 
 graphics.off()
-if(iplot) png("Moon_Sun.png", height = 6, width = 8, unit='in', res=200)
+if(iplot) png(file.path(dir.png, "Moon_Sun.png"), height = 6, width = 8, unit='in', res=300)
 
 days = round(seq(0, 365, 7), 0)
 nt=length(days)
@@ -66,14 +68,14 @@ for(i in 1:nday){
   loc.e = Status.planet(t=iday, p.orb = p.earth,
                      ab=ab.earth, r.orb =ob.earth + rad/365 *2,
                      orig = origin)
-  plotplanet(orig=loc.e[,-1], rad = rad*.19,
-             theta = loc.e[,1], len=.1, cols = 2, arrow = F, border=2, fun = polygon )
+  # The Earth. Red dots on orbit.
+  plotplanet(orig=loc.e[,-1], rad = rad*.19, theta = loc.e[,1], len=.1, cols = 2, arrow = F, border=2, fun = polygon )
   orig = loc.e[,-1];
   loc.day = Status.planet(t=iday, p.orb = p.earth, r.orb=ob.earth*.15,
                      orig = orig, ab=ab.earth)
   text(loc.day[,2], loc.day[,3], paste0(iday), cex=.7, col='royalblue')
 
-  #Moon
+  # Moon
   iorb = floor(iday / p.moon)
   r.orb = rad
   icol=round(abs(iday %% sp - sp/2)+1)
@@ -86,7 +88,7 @@ for(i in 1:nday){
 }
 
 plotplanet(r=rad*.5, o=leg.loc+c(0,1)*rad, fun = polygon,  cols = c(cols[7], 'gray20'))
-text(leg.loc[1], leg.loc[2]+rad, 'Moon Phase', adj = -.7, cex=0.6)
+text(leg.loc[1], leg.loc[2]+rad, 'Moon Phase', adj = -.3, cex=0.6)
 
 plotplanet(r=rad*.18, o=leg.loc+c(0,3)*rad, fun = polygon,  cols = 2, arrow=F, border=2)
 text(leg.loc[1], leg.loc[2]+3*rad, 'Earth', adj = -.7, cex=0.6)
